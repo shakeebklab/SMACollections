@@ -1,0 +1,4 @@
+﻿project_id = "time-and-step"
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]

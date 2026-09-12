@@ -1,69 +1,8 @@
-import Image from "next/image";
-
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
-}
+export const dynamic = 'force-dynamic';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowUpRight, Truck, ShieldCheck, PackageCheck } from 'lucide-react';
+import { Hero, Featured, ProductGrid } from '@/components/products';
+import { getProducts } from '@/lib/catalog';
+import { watchImage, shoeImage } from '@/lib/demo';
+export default async function Home() { const products = await getProducts(); return <><Hero /><div className="trust-strip"><span><Truck /> Nationwide delivery</span><span><ShieldCheck /> Pay when it arrives</span><span><PackageCheck /> Carefully selected essentials</span><span className="last">A LITTLE DETAIL. A BIG DIFFERENCE.</span></div><section className="section categories"><div className="section-heading"><div><p className="eyebrow">TWO COLLECTIONS. ENDLESS POSSIBILITIES.</p><h2>Find your signature.</h2></div><p>For the moments that matter.<br />And everything in between.</p></div><div className="category-grid">{[['Watches', 'Time, well spent.', watchImage], ['Shoes', 'Go your own way.', shoeImage]].map(([name, line, img]) => <Link className="category-card" href={`/shop/${name.toLowerCase()}`} key={name}><Image src={img} alt={name} fill sizes="(max-width:700px) 100vw, 50vw"/><div><p className="eyebrow">THE {name.toUpperCase()} COLLECTION</p><h3>{line}</h3><span>Discover {name.toLowerCase()} <ArrowUpRight size={18}/></span></div></Link>)}</div></section><Featured products={products}/><section className="editorial"><p className="eyebrow">LESS, BUT BETTER.</p><h2>Style isn’t more.<br />It’s <em>more you.</em></h2><p>We believe the best things in your wardrobe earn their place.<br />Discover thoughtful details and pieces you’ll reach for again.</p><Link className="button" href="/about">The Time & Step story <ArrowUpRight size={18}/></Link><span className="editorial-mark">T&S</span></section><section className="section"><div className="section-heading"><div><p className="eyebrow">FRESH PERSPECTIVES</p><h2>Just landed.</h2></div><Link className="text-link" href="/shop?sort=newest">View new arrivals <ArrowUpRight size={18}/></Link></div><ProductGrid products={products.filter(p => p.new_arrival).slice(0, 4)}/></section><section className="section best"><div className="section-heading"><h2>The most-wanted edit.</h2><Link href="/shop">Explore all ?</Link></div><ProductGrid products={products.filter(p => p.best_seller).slice(0, 4)}/></section><section className="quote-section"><p className="eyebrow">OUR POINT OF VIEW</p><blockquote>“The right details don’t just complete a look.<br />They make it yours.”</blockquote><span>THE TIME & STEP EDIT</span></section></>; }
