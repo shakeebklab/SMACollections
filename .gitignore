@@ -47,3 +47,6 @@ next-env.d.ts
 /reference.jpg
 /supabase/.temp/
 !.env.example
+/dist/
+.vinext/
+.wrangler/
