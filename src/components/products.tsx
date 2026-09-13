@@ -19,6 +19,9 @@ export function ProductCard({ product: p }: {
 export function ProductGrid({ products }: {
     products: Product[];
 }) { return <div className="product-grid">{products.map(p => <ProductCard key={p.id} product={p}/>)}</div>; }
+function isFootwear(product: Product) {
+    return ['shoes', 'sneakers', 'joggers'].includes(String(product.category).toLowerCase());
+}
 export function Featured({ products }: {
     products: Product[];
-}) { const [filter, setFilter] = useState('All'); return <section className="section"><div className="section-heading"><div><p className="eyebrow">THE CONSIDERED COLLECTION</p><h2>Your next everyday favourite.</h2></div><Link className="text-link" href="/shop">Shop the collection <ArrowUpRight size={17}/></Link></div><div className="tabs">{['All', 'Watches', 'Shoes'].map(x => <button key={x} className={filter === x ? 'active' : ''} onClick={() => setFilter(x)}>{x}</button>)}</div><ProductGrid products={products.filter(p => filter === 'All' || p.category === filter.toLowerCase()).slice(0, 4)}/></section>; }
+}) { const [filter, setFilter] = useState('All'); const visibleProducts = products.filter(product => filter === 'All' || (filter === 'Shoes' ? isFootwear(product) : String(product.category).toLowerCase() === 'watches')); return <section className="section"><div className="section-heading"><div><p className="eyebrow">THE CONSIDERED COLLECTION</p><h2>Your next everyday favourite.</h2></div><Link className="text-link" href="/shop">Shop the collection <ArrowUpRight size={17}/></Link></div><div className="tabs">{['All', 'Watches', 'Shoes'].map(x => <button key={x} className={filter === x ? 'active' : ''} onClick={() => setFilter(x)}>{x}</button>)}</div><ProductGrid products={visibleProducts.slice(0, 4)}/><div className="explore-all"><Link className="button" href="/shop">Explore all designs <ArrowUpRight size={18}/></Link></div></section>; }
