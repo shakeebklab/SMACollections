@@ -2,6 +2,8 @@
 
 Original customer-only Next.js 16 App Router storefront for shoes and watches. No customer authentication and no admin dashboard. Reference video: `../video_ref/website_vidoe.mp4`; its design was used for inspiration only.
 
+Repository: SMACollections
+
 ## Run locally
 
 Use Node.js 22+ and npm. From this directory:

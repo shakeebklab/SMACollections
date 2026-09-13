@@ -52,3 +52,42 @@ h1,h2,h3,.category-card h3,.product-card h3,.cart-row h3,blockquote{font-family:
 @media(max-width:1000px){.hero{min-height:660px}.hero-copy{width:63%;padding-top:90px}.hero h1{font-size:clamp(52px,8vw,78px)}.hero-object{left:31%}.hero-glow{left:48%}}
 @media(max-width:700px){.hero{margin:0;min-height:700px;padding:0 6%}.hero-copy{width:100%;padding:60px 0 250px}.hero h1{font-size:clamp(50px,15vw,68px);line-height:.91}.hero-description{max-width:310px}.hero-object{inset:38% -23% -4% 2%;opacity:.82}.hero-object img{object-position:center 64%;mask-image:linear-gradient(0deg,#000 15%,rgba(0,0,0,.9) 52%,transparent 96%)}.hero-shoe .hero-object{inset:43% -28% -3% -9%}.hero-shoe .hero-object img{object-position:67% center}.hero-glow{left:35%;top:43%;width:360px;height:360px}.hero-foot{display:none}.image-caption{right:6%;bottom:30px}.vertical-label{right:4%;top:68%}.slider-controls{left:6%;right:auto;bottom:30px}.hero:after{font-size:100px;right:-20px;bottom:120px}}
 @media(max-width:700px){.logo-image{height:72px;gap:5px}.logo-image img{width:66px;height:66px}.logo-image small{display:none}.footer-logo img{width:112px;height:112px}.footer-logo small{display:block}}
+
+/* Keep every product image available in a horizontally scrollable gallery. */
+.product-gallery{min-width:0;max-width:100%}
+.thumbnails{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-color:var(--gold) transparent;scrollbar-width:thin}
+.thumbnails button{flex:0 0 80px;width:80px;height:80px;padding:0;border:1px solid transparent;overflow:hidden;scroll-snap-align:start;opacity:.72}
+.thumbnails button:hover,.thumbnails button.active{opacity:1;border-color:var(--gold)}
+.thumbnails img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* A shared footer reserves separate rows for the caption and controls. */
+.hero-footer{position:absolute;right:6%;bottom:40px;z-index:2;display:flex;flex-direction:column;gap:12px;max-width:88%}
+.hero-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;color:#ddd5c7;font-size:9px;letter-spacing:1.8px}
+.hero-caption span{min-width:0;overflow-wrap:anywhere}
+.hero-caption svg{flex-shrink:0}
+.hero-controls{display:flex;align-items:center;gap:12px;font-size:10px}
+.hero-controls i{font-style:normal;color:#666c60}
+.hero-controls button{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:4px}
+@media(min-width:701px){.hero-controls{order:-1;align-self:flex-end}}
+@media(max-width:700px){
+  .hero{display:flex;flex-direction:column;padding-bottom:24px}
+  .hero-footer{position:relative;inset:auto;width:100%;max-width:none;margin-top:auto}
+  .hero-controls{flex-wrap:wrap;align-self:flex-start}
+}
+
+/* Branded loading states share the store's warm metal and charcoal palette. */
+.store-loader{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:60px 24px;text-align:center;background:radial-gradient(ellipse at center,rgba(183,149,101,.09),transparent 65%),#10130f;color:#c6ab80}
+.store-loader-screen{position:fixed;inset:0;z-index:10000;min-height:100dvh}
+body:has(.store-loader-screen){overflow:hidden}
+.loader-dial{position:relative;width:128px;height:128px;display:grid;place-items:center;border:1px solid #b7956533;border-radius:50%;box-shadow:0 0 70px #b7956512,inset 0 0 35px #b7956508}
+.loader-dial:after{content:'';position:absolute;inset:10px;border:1px dashed #b7956538;border-radius:50%}
+.loader-orbit{position:absolute;inset:-5px;border:1px solid transparent;border-top-color:#d5b782;border-right-color:#b7956544;border-radius:50%;animation:loader-turn 2s linear infinite}
+.loader-orbit:after{content:'';position:absolute;top:16px;right:13px;width:5px;height:5px;border-radius:50%;background:#e6c78e;box-shadow:0 0 14px #e6c78e}
+.loader-monogram{font-family:Georgia,serif;font-size:32px;letter-spacing:-3px}.loader-monogram span{font-size:20px;font-style:italic;margin:0 3px}
+.loader-brand{font-size:10px;letter-spacing:5px;margin-top:8px}.loader-label{font-size:13px;letter-spacing:.5px;color:#aaa99b}
+.loader-track{width:140px;height:2px;overflow:hidden;background:#b7956522}.loader-track>span{display:block;width:45%;height:100%;background:linear-gradient(90deg,transparent,#d6bb8d,transparent);animation:loader-sweep 1.6s ease-in-out infinite}
+.fetch-loader{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:inherit}.fetch-spinner{display:inline-block;flex-shrink:0;width:17px;height:17px;border:1.5px solid currentColor;border-right-color:transparent;border-radius:50%;animation:loader-turn .85s linear infinite}
+.fetch-panel{padding:20px 0;color:#c6ab80}.fetch-skeleton{height:8px;width:100%;margin-top:18px;background:linear-gradient(100deg,#b7956510 20%,#b7956540 50%,#b7956510 80%);background-size:200% 100%;animation:loader-shimmer 1.6s ease-in-out infinite;border-radius:4px}.fetch-skeleton.short{width:65%;margin-top:10px}
+@keyframes loader-turn{to{transform:rotate(360deg)}}@keyframes loader-sweep{from{transform:translateX(-110%)}to{transform:translateX(330%)}}@keyframes loader-shimmer{to{background-position:-200% 0}}
+@media(prefers-reduced-motion:reduce){.loader-orbit,.loader-track>span,.fetch-spinner,.fetch-skeleton{animation:none}.loader-track>span{width:100%}}
+@media print{.store-loader-screen{display:none}}

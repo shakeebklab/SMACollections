@@ -1,1 +1,2 @@
-export default function Loading() { return <div className="section"><div className="skeleton title-skeleton"/><div className="product-grid">{[1, 2, 3, 4].map(i => <div className="skeleton" style={{ height: 360 }} key={i}/>)}</div></div>; }
+import {StoreLoader} from '@/components/loading';
+export default function Loading() {return <StoreLoader label="Curating your next favourite"/>;}
